@@ -89,7 +89,7 @@
 			return {
 				init: activate,
 				destroy: destroy
-			}
+			};
 		})(target.widgets.tooltip);
 
 		$.extend(target.widgets.tooltip, obj);

@@ -28,8 +28,6 @@
 
 			defaults: {
 				type: {
-					blurtrim: "blurtrim",
-
 					trim: "trim",
 					upper: "upper",
 					lower: "lower",
@@ -37,7 +35,6 @@
 					capitalizeAll: "capitalize-all",
 					capitalizeTitle: "capitalize-title"
 				},
-				trigger: "change",
 				subtypes: {
 					all: "all",
 					title: "title"
@@ -87,26 +84,15 @@
 				for (var i = 0; i < typeArr.length; i++) {
 					var t = typeArr[i];
 					if (t.startsWith("blur")) {
-						input.on("blur.wdg.texttransform", { type: t }, _onblurHandler);
+						input.on("blur.wdg.texttransform", { type: t.replace("blur", "") }, _texttransformHandler);
 					}
 					else {
-						input.on("change.wdg.texttransform keyup.wdg.texttransform keydown.wdg.texttransform paste.wdg.texttransform cut.wdg.texttransform", { type: t }, _onchangeHandler);
+						input.on("change.wdg.texttransform keyup.wdg.texttransform keydown.wdg.texttransform paste.wdg.texttransform cut.wdg.texttransform", { type: t }, _texttransformHandler);
 					}
 				}
 			};
 
-			function _onblurHandler(event) {
-				var self = $(this);
-				var types = defaults.type;
-
-				switch (event.data.type) {
-					case types.blurtrim:
-						_trim(self);
-						break;
-				}
-			}
-
-			function _onchangeHandler(event) {
+			function _texttransformHandler(event) {
 				var self = $(this);
 				var types = defaults.type;
 
